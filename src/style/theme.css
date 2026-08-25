@@ -1,0 +1,37 @@
+@layer base {
+  :root {
+    /* Tons principais: Bege (fundo/superfície) e Violeta (primário) */
+    --background: #ffefcd;      /* Bege bem clarinho e aconchegante */
+    --surface: #ffffff;         /* Branco para cartões e containers */
+    --text: #2d263b;            /* Violeta escuro/quente para alta legibilidade */
+    --muted: #787182;           /* Tom acinzentado/violeta suave para textos secundários */
+    
+    --primary: #8d5fdc;         /* Violeta vibrante principal */
+    --primary-strong: #6d28d9;  /* Violeta mais forte para hover/ênfase */
+    --ring: rgba(124, 58, 237, 0.2); /* Anel de foco com o violeta translúcido */
+    
+    --border: #e9e4ed;          /* Borda com leve toque acinzentado-violeta */
+  }
+
+  :root[data-theme='dark'] {
+    /* Modo Escuro: Fundo violeta escuro/profundo com detalhes em bege suave */
+    --background: #131018;      /* Violeta escuro quase preto para o fundo */
+    --surface: #1e1926;         /* Superfície ligeiramente mais clara para blocos */
+    --text: #f3f0f6;            /* Bege/creme bem clarinho para o texto principal */
+    --muted: #a39bb0;           /* Violeta acinzentado suave para textos secundários */
+    
+    --primary: #a78bfa;         /* Violeta claro/pastel para destacar no escuro */
+    --primary-strong: #c4b5fd;  /* Violeta claro forte para hover */
+    --ring: rgba(167, 139, 250, 0.25); /* Anel de foco em tom claro */
+
+
+    --border: #2e263d;          /* Borda escura sutil */
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
