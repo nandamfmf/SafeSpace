@@ -8,3 +8,79 @@ body {
   color: var(--text);
 }
 
+.response-panel {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.response-panel h1,
+.response-panel h2,
+.response-panel h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.response-panel h1 {
+  font-size: 1.5rem;
+}
+
+.response-panel h2 {
+  font-size: 1.25rem;
+}
+
+.response-panel h3 {
+  font-size: 1.1rem;
+}
+
+.response-panel p {
+  margin: 0.75rem 0;
+}
+
+.response-panel ul,
+.response-panel ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.response-panel ul {
+  list-style: disc;
+}
+
+.response-panel ol {
+  list-style: decimal;
+}
+
+.response-panel li {
+  margin: 0.35rem 0;
+}
+
+.response-panel strong {
+  font-weight: 700;
+}
+
+.response-panel code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  background: rgb(0 0 0 / 20%);
+  font-size: 0.9em;
+}
+
+.response-panel pre {
+  max-width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: rgb(0 0 0 / 30%);
+}
+
+.response-panel pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.response-panel a {
+  text-decoration: underline;
+}
+
