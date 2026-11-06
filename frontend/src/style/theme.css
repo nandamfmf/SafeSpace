@@ -1,0 +1,31 @@
+@layer base {
+  :root {
+    --background: #131018;      
+    --surface: #1e1926;         
+    --text: #f3f0f6;           
+    --muted: #a39bb0;           
+    --primary: #a78bfa;        
+    --primary-strong: #c4b5fd;  
+    --ring: rgba(167, 139, 250, 0.25); 
+    --border: #2e263d;        
+  }
+
+  :root[data-theme='light'] {
+    --background: #ffefcd;    
+    --surface: #ffffff;        
+    --text: #2d263b;          
+    --muted: #787182;           
+    --primary: #8d5fdc;         
+    --primary-strong: #6d28d9; 
+    --ring: rgba(124, 58, 237, 0.2); 
+    
+    --border: #e9e4ed;       
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
