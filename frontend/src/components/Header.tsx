@@ -1,5 +1,5 @@
 import ButtonTheme from './ButtonTheme'
-import nome from '../assets/nome.png'
+import ButtonSignIn from './ButtonSignIn'
 
 const Header = () => {
   return (
@@ -11,6 +11,9 @@ const Header = () => {
       </div>
 
       <ButtonTheme />
+
+      <ButtonSignIn />
+
     </header>
   )
 }
