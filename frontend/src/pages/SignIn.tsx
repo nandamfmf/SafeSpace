@@ -33,7 +33,8 @@ const SignIn = () => {
             setError(data.error || data.message || "Could not log in the account.");
         }
 
-        if(response.ok){
+        if(response.ok && data.token) {
+            localStorage.setItem("token", data.token);
             window.location.href = "/resultado";
         }
     }
@@ -53,12 +54,26 @@ const SignIn = () => {
             <h1 className="text-xl text-center font-bold mt-8">Sign In</h1>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            
-            {!error && <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {error && <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {!error && <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New password" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]"/>}
-            {error && <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New password" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]"/>}
 
+                <input 
+                    type="text" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="Email" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+                />
+            
+            <input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="Password" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+                />
 
             <button disabled={isLoading} type="submit" className="border border-blue-300 rounded-lg w-[230px] p-4 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50">{isLoading ? "Loading..." : "Sign In"}</button>
         </form>
