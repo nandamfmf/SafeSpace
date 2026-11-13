@@ -4,6 +4,7 @@ import Historico from '../pages/Historico';
 import Home from '../pages/Home';
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
+import ProtectedRoute from "./ProtectedRoute";
  
 
 const Routing = () => {
@@ -14,8 +15,10 @@ const Routing = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/resultado" element={<Resultado />} />
-          <Route path="/historico" element={<Historico />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/resultado" element={<Resultado />} />
+            <Route path="/historico" element={<Historico />} />
+          </Route>
         </Routes>
     </BrowserRouter>
     </div>

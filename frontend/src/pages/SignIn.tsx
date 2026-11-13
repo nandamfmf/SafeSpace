@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from "react"
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
 
+    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -35,7 +37,24 @@ const SignIn = () => {
 
         if(response.ok && data.token) {
             localStorage.setItem("token", data.token);
-            window.location.href = "/resultado";
+
+            const protectedResponse = await fetch("http://localhost:5000/api/protected", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${data.token}`
+                }
+            });
+
+            if (!protectedResponse.ok) {
+                setError("Failed to access protected route.");
+                setIsLoading(false);
+                return;
+            }
+
+            else{
+                navigate("/resultado");
+            }
         }
     }
 

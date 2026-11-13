@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from "react"
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
 
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [confirm_password, setConfirmPassword] = useState("");
     const [password, setPassword] = useState("");
@@ -41,8 +43,8 @@ const SignUp = () => {
             setError(data.error || data.message || "Could not create the account.");
         }
 
-        if(response.ok){
-            window.location.href = "/resultado";
+        if(response.ok){    
+            navigate("/signin");
         }
     }
 
@@ -62,15 +64,45 @@ const SignUp = () => {
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
             
-            {!error && <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {error && <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {!error && <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {error && <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {!error && <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New password" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]"/>}
-            {error && <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New password" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]"/>}
-            {!error && <input type="password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm password" className="border shadow-sm placeholder:text-[var(--text)] border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}
-            {error && <input type="password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm password" className="border shadow-sm placeholder:text-[var(--text)] border-red-500 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" />}      
+            <input 
+                    type="text" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    placeholder="Full name" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+            />
 
+            <input 
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="Email" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+            />
+    
+            <input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="New password" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+                />
+    
+            <input 
+                    type="password" 
+                    value={confirm_password} 
+                    onChange={(e) => setConfirmPassword(e.target.value)} 
+                    placeholder="Confirm password" 
+                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
+                        error ? "border-red-500" : "border-gray-300"
+                    }`} 
+            />
 
             <button disabled={isLoading} type="submit" className="border border-blue-300 rounded-lg w-[230px] p-4 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50">{isLoading ? "Loading..." : "Sign Up"}</button>
         </form>
