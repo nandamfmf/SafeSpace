@@ -1,19 +1,15 @@
 from pathlib import Path
-import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 
 DATABASE_PATH = Path(__file__).with_name("database.db")
 
-def get_connection():
-    return sqlite3.connect(DATABASE_PATH)
+db = SQLAlchemy()
+class User(db.Model):
+    __tablename__ = "users"
 
-with get_connection() as con:
-    con.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
-        )
-    """)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
 
