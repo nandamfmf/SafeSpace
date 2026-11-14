@@ -1,10 +1,22 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ProtectedRoute = () => {
   const location = useLocation();
-  const token = localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-  if (!token) {
+  useEffect(() => {
+    fetch(`${API_URL}/api/me`, { credentials: "include" })
+      .then((response) => setIsAuthenticated(response.ok))
+      .catch(() => setIsAuthenticated(false));
+  }, []);
+
+  if (isAuthenticated === null) {
+    return <p>Loading...</p>;
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/signin" replace state={{ from: location }} />;
   }
 
