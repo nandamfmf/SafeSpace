@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 DATABASE_PATH = Path(__file__).with_name("database.db")
 
 db = SQLAlchemy()
+
 class User(db.Model):
     __tablename__ = "users"
 

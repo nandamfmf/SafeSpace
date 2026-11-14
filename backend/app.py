@@ -13,19 +13,28 @@ from flask_jwt_extended import (
     jwt_required,
 )
 
-def load_dontenv():
-    load_dotenv(dotenv_path=Path(__file__).with_name(".env.example"))
+def load_dotenv_config():
+    load_dotenv(dotenv_path=Path(__file__).with_name(".env"))
     jwt_secret_key = os.getenv("JWT_SECRET_KEY")
 
-    if not jwt_secret_key:
-        raise RuntimeError("JWT_SECRET_KEY must be configured in the environment")
+    if not jwt_secret_key or len(jwt_secret_key) < 32:
+        raise RuntimeError(
+            "JWT_SECRET_KEY must be configured with at least 32 characters"
+        )
 
     return jwt_secret_key
 
+database_url = os.getenv("DATABASE_URL")
+
+if not database_url:
+    raise RuntimeError("DATABASE_URL must be configured in the .env file")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = load_dontenv()
+app.config["JWT_SECRET_KEY"] = load_dotenv_config()
 JWTManager(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DATABASE_PATH}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///{DATABASE_PATH}"
 db.init_app(app)
 
 with app.app_context():
