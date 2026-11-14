@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 from auth.signin import signin_bp
 from auth.signup import signup_bp
-from connection import DATABASE_PATH, db
+from connection import db
 from flask_jwt_extended import (
     JWTManager,
     create_access_token,
@@ -24,17 +24,15 @@ def load_dotenv_config():
 
     return jwt_secret_key
 
-database_url = os.getenv("DATABASE_URL")
+app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = load_dotenv_config()
 
+database_url = os.getenv("DATABASE_URL")
 if not database_url:
     raise RuntimeError("DATABASE_URL must be configured in the .env file")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-
-app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = load_dotenv_config()
 JWTManager(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///{DATABASE_PATH}"
 db.init_app(app)
 
 with app.app_context():
