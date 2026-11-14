@@ -1,18 +1,22 @@
-import { GoogleGenAI } from "@google/genai";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-export async function enviarMensagem(mensagem : string): Promise<string | undefined> {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('Configure VITE_GEMINI_API_KEY no arquivo .env.local.');
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
-
-  const response = await ai.models.generateContent({
-    model: "gemini-3.6-flash",
-    contents: mensagem,
+export async function enviarMensagem(mensagem: string): Promise<string> {
+  const response = await fetch(`${API_URL}/api/gemini`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: mensagem }),
   });
 
-  return response.text;
+  const data = await response.json() as { response?: string; error?: string };
+
+  if (!response.ok) {
+    throw new Error(data.error || "Não foi possível obter uma resposta da IA.");
+  }
+
+  if (!data.response) {
+    throw new Error("A IA não retornou uma resposta.");
+  }
+
+  return data.response;
 }
