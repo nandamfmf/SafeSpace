@@ -26,10 +26,11 @@ const Resultado = () => {
         credentials: "include"
       })
 
-      const data = await result.json();
+      const contentType = result.headers.get("content-type") || "";
+      const data = contentType.includes("application/json") ? await result.json() : null;
 
       if(!result.ok){
-        throw new Error(data.error || "Wasn't able to get a response from the AI.");
+        throw new Error(data?.error || "Wasn't able to get a response from the AI.");
       }
 
       setResponse(data.response || "AI didn't return a response.");
