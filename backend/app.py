@@ -4,7 +4,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask_cors import CORS
 from flask_session import Session
-from ai.gemini import gemini_bp
 from auth.signin import signin_bp
 from auth.signup import signup_bp
 from connection import db
@@ -49,8 +48,6 @@ CORS(
 
 app.register_blueprint(signin_bp)
 app.register_blueprint(signup_bp)
-app.register_blueprint(gemini_bp)
-    
 
 if __name__ == "__main__":
     app.run(debug=False)
