@@ -1,6 +1,7 @@
 import {useState, type FormEvent} from 'react'
-import {enviarMensagem} from '../gemini'
 import ReactMarkdown from 'react-markdown'
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Resultado = () => {
 
@@ -18,11 +19,23 @@ const Resultado = () => {
     setResponse("");
 
     try {
-      const result = await enviarMensagem(trimmedMessage);
-      setResponse(result || "A IA não retornou uma resposta.");
+      const result = await fetch(`${API_URL}/api/gemini`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message: trimmedMessage}),
+        credentials: "include"
+      })
+
+      const data = await result.json();
+
+      if(!result.ok){
+        throw new Error(data.error || "Wasn't able to get a response from the AI.");
+      }
+
+      setResponse(data.response || "AI didn't return a response.");
       setMessage("");
     } catch (error) {
-      setResponse(error instanceof Error ? error.message : "Não foi possível obter uma resposta.");
+      setResponse(error instanceof Error ? error.message : "Wasn't able to get a response from the AI.");
     } finally {
       setIsLoading(false);
     }
@@ -32,7 +45,7 @@ const Resultado = () => {
   return (
 
     <div className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] text-[var(--text)] px-4 py-24">
-      <h1 className="absolute top-0 mt-10 text-2xl text-center font-bold mt-8">Hi! How are you feeling today?</h1>
+      <h1 className="absolute top-0 mt-10 text-2xl text-center font-bold">Hi! How are you feeling today?</h1>
 
       <form onSubmit={handleSubmit} className="absolute bottom-0 mb-10 flex gap-2">
         <input type="text" value={message} placeholder="Type your message here..." className="border border-gray-300 rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)]" onChange={(e) => setMessage(e.target.value)} />
