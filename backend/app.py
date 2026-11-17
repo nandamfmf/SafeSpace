@@ -6,6 +6,7 @@ from flask_cors import CORS
 from flask_session import Session
 from auth.signin import signin_bp
 from auth.signup import signup_bp
+from gemini import gemini_bp
 from connection import db
 
 def load_dotenv_config():
@@ -42,12 +43,16 @@ with app.app_context():
 
 CORS(
     app,
-    origins=["http://localhost:5173"],
+    origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     supports_credentials=True,
 )
 
 app.register_blueprint(signin_bp)
 app.register_blueprint(signup_bp)
+app.register_blueprint(gemini_bp)
 
 if __name__ == "__main__":
     app.run(debug=False)
