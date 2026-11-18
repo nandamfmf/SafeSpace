@@ -18,13 +18,19 @@ const Resultado = () => {
     setIsLoading(true);
     setResponse("");
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 120000);
+
     try {
       const result = await fetch(`${API_URL}/api/gemini`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ message: trimmedMessage}),
-        credentials: "include"
+        credentials: "include",
+        signal: controller.signal,
       })
+
+      clearTimeout(timeoutId);
 
       const contentType = result.headers.get("content-type") || "";
       const data = contentType.includes("application/json") ? await result.json() : null;
@@ -36,8 +42,13 @@ const Resultado = () => {
       setResponse(data.response || "AI didn't return a response.");
       setMessage("");
     } catch (error) {
-      setResponse(error instanceof Error ? error.message : "Wasn't able to get a response from the AI.");
+      setResponse(error instanceof DOMException && error.name === "AbortError"
+        ? "The AI took too long to respond. Please try again."
+        : error instanceof Error
+          ? error.message
+          : "Wasn't able to get a response from the AI.");
     } finally {
+      window.clearTimeout(timeoutId);
       setIsLoading(false);
     }
   }
