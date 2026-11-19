@@ -7,7 +7,14 @@
     --primary: #a78bfa;        
     --primary-strong: #c4b5fd;  
     --ring: rgba(167, 139, 250, 0.25); 
-    --border: #2e263d;        
+    --border: #2e263d;
+
+    --page-bg: #131018;
+    --page-surface: #1e1926;
+    --page-card: #211d29;
+    --page-text: #f3f0f6;
+    --page-muted: #b8b2c3;
+    --page-border: rgba(243, 240, 246, 0.14);
   }
 
   :root[data-theme='light'] {
@@ -19,7 +26,14 @@
     --primary-strong: #6d28d9; 
     --ring: rgba(124, 58, 237, 0.2); 
     
-    --border: #e9e4ed;       
+    --border: #e9e4ed;
+
+    --page-bg: #f4f0e8;
+    --page-surface: #fffdf7;
+    --page-card: #ffffff;
+    --page-text: #171713;
+    --page-muted: #68685f;
+    --page-border: rgba(23, 23, 19, 0.14);
   }
 
   body {
