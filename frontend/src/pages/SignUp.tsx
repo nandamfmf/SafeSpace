@@ -58,55 +58,100 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-        <form onSubmit={handleSubmit} className="flex flex-col min-h-screen align-center items-center justify-center gap-8">
-            <h1 className="text-xl text-center font-bold mt-8">Sign Up</h1>
+    <main className="relative min-h-screen w-full overflow-hidden bg-[var(--page-bg)] px-5 py-8 text-[var(--page-text)] transition-colors duration-300 sm:px-8 sm:py-12">
+      <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full border-[48px] border-[#171713]/[0.04]" aria-hidden="true" />
+      <div className="absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-[#c9ff62]/40 blur-3xl" aria-hidden="true" />
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            
-            <input 
-                    type="text" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                    placeholder="Full name" 
-                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
-                        error ? "border-red-500" : "border-gray-300"
-                    }`} 
-            />
+      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl items-center justify-center sm:min-h-[calc(100vh-6rem)]">
+        <section className="grid w-full overflow-hidden rounded-[2rem] border bg-[#fffdf7]">
 
-            <input 
-                    type="email" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    placeholder="Email" 
-                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
-                        error ? "border-red-500" : "border-gray-300"
-                    }`} 
-            />
-    
-            <input 
-                    type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    placeholder="New password" 
-                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
-                        error ? "border-red-500" : "border-gray-300"
-                    }`} 
-                />
-    
-            <input 
-                    type="password" 
-                    value={confirm_password} 
-                    onChange={(e) => setConfirmPassword(e.target.value)} 
-                    placeholder="Confirm password" 
-                    className={`border shadow-sm placeholder:text-[var(--text)] rounded-lg p-4 w-[380px] max-w-[calc(100vw-110px)] ${
-                        error ? "border-red-500" : "border-gray-300"
-                    }`} 
-            />
+          <div className="flex min-h-[680px] flex-col justify-center px-6 py-10 sm:px-12 lg:px-16">
+            <a href="/" className="mb-8 text-[black] text-xl tracking-[-0.04em] text-center font-black mt-4">
+              Safe<span className="text-[#6d5dfc]">Space.</span>
+            </a>
 
-            <button disabled={isLoading} type="submit" className="border border-blue-300 rounded-lg w-[230px] p-4 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50">{isLoading ? "Loading..." : "Sign Up"}</button>
-        </form>
-    </div>
+            <div className="mx-auto w-full max-w-[430px]">
+              <div>
+                <h1 className="text-4xl text-center font-tanker font-bold leading-tight tracking-[-0.04em] text-[black] sm:text-5xl">Create your account for free</h1>
+              </div>
+
+              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+                {error && (
+                  <p role="alert" className="rounded-xl border border-[#b42318]/15 bg-[#fff1ee] px-4 py-3 text-sm font-semibold text-[#a33a2f]">
+                    {error}
+                  </p>
+                )}
+
+                <label className="flex flex-col gap-2 text-sm font-bold text-[black]">
+                  Full name
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    autoComplete="name"
+                    className={`h-14 w-full rounded-xl border bg-white px-4 text-base font-normal outline-none transition duration-200 placeholder:text-[#96958d] focus:border-[#6d5dfc] focus:ring-4 focus:ring-[#6d5dfc]/10 ${error ? "border-[#b42318]/50" : "border-[#171713]/15"}`}
+                  />
+                </label>
+
+                <label className="flex flex-col gap-2 text-sm font-bold text-[black]">
+                  Email
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="user@example.com"
+                    autoComplete="email"
+                    className={`h-14 w-full rounded-xl border bg-white px-4 text-base font-normal outline-none transition duration-200 placeholder:text-[#96958d] focus:border-[#6d5dfc] focus:ring-4 focus:ring-[#6d5dfc]/10 ${error ? "border-[#b42318]/50" : "border-[#171713]/15"}`}
+                  />
+                </label>
+
+                <div className="grid gap-4 sm:grid-cols-2 text-[black]">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-bold">
+                    Password
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="New password"
+                      autoComplete="new-password"
+                      className={`h-14 w-full rounded-xl border bg-white px-4 text-base font-normal outline-none transition duration-200 placeholder:text-[#96958d] focus:border-[#6d5dfc] focus:ring-4 focus:ring-[#6d5dfc]/10 ${error ? "border-[#b42318]/50" : "border-[#171713]/15"}`}
+                    />
+                  </label>
+
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-bold text-[black]">
+                    Confirm
+                    <input
+                      type="password"
+                      value={confirm_password}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Repeat password"
+                      autoComplete="new-password"
+                      className={`h-14 w-full rounded-xl border bg-white px-4 text-base font-normal outline-none transition duration-200 placeholder:text-[#96958d] focus:border-[#6d5dfc] focus:ring-4 focus:ring-[#6d5dfc]/10 ${error ? "border-[#b42318]/50" : "border-[#171713]/15"}`}
+                    />
+                  </label>
+                </div>
+
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  className="mt-2 h-14 w-full cursor-pointer rounded-full bg-[#171713] px-6 text-base font-bold text-[#f4f0e8] transition duration-200 hover:-translate-y-0.5 hover:bg-[#6d5dfc] disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6d5dfc]"
+                >
+                  {isLoading ? "Creating account..." : "Create account"}
+                </button>
+
+                <p className="text-center text-sm text-[#68685f]">
+                  Already have an account?{" "}
+                  <a href="/signin" className="font-bold text-[#171713] underline decoration-[#6d5dfc] decoration-2 underline-offset-4 transition-colors hover:text-[#6d5dfc]">
+                    Sign in
+                  </a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   )
 }
 
