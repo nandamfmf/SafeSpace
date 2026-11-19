@@ -16,7 +16,7 @@ const Home = () => {
 
 
                 <div className="flex flex-col justify-center items-center md:items-start">
-                <h1 className="text-[120px] md:text-[150px] font-black leading-[0.86] tracking-[-0.055em]">
+                <h1 className="text-[120px] font-tanker font-bold md:text-[150px] font-black leading-[0.86] tracking-[-0.055em]">
                   Safe
                   <br />
                   <span className="text-[#6d5dfc]">Space.</span>
@@ -24,7 +24,7 @@ const Home = () => {
                 </div>
 
                 <div className="mt-8 flex max-w-[650px] flex-col items-center gap-5 pt-7 sm:flex-row sm:items-end sm:justify-between">
-                  <p className="max-w-[380px] text-center text-lg leading-8 text-[#4f4f46] sm:text-left">
+                  <p className="max-w-[380px] text-center text-lg leading-8 text-[var(--text)] sm:text-left">
                     Your safe space to freely share your emotions, embraced by a supportive community.
                   </p>
 
