@@ -7,7 +7,7 @@ function ButtonTheme() {
         <button
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'}
-            className="absolute left-0 top-0 ml-8 mt-7 cursor-pointer md:block">
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--page-border)] bg-[var(--page-surface)] text-[var(--page-text)] shadow-sm backdrop-blur-sm transition duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6d5dfc]'">
 
             {theme === 'dark' ? (
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
