@@ -18,6 +18,7 @@ export function ThemeProvider({children} : PropsWithChildren){
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
+    document.documentElement.style.colorScheme = theme
     localStorage.setItem('theme', theme)
   }, [theme])
 
